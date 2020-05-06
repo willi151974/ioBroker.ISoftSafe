@@ -29,7 +29,7 @@
         "license": "MIT",
         "platform": "Javascript/Node.js",
         "main": "main.js",
-        "icon": "ISoft.png",
+        "icon": "isoft.png",
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/willi151974/ioBroker.ISoftSafe/master/admin/isoft.png",
         "readme": "https://github.com/willi151974/ioBroker.ISoftSafe/blob/master/README.md",
