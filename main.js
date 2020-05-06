@@ -62,7 +62,7 @@ class ISoftSafe extends utils.Adapter {
                                     },
                                     native: {},
                                 });
-                                self.setState('ISoftSafe.Token' , {val: parseFloat(TokenFrommyjudo), ack: true});
+                                self.setState('ISoftSafe.Token' , {val: TokenFrommyjudo, ack: true});
                             }
                         }
 
