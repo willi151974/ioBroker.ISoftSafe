@@ -1,17 +1,15 @@
 'use strict';
 
-/*
- * Created with @iobroker/create-adapter v1.24.2
- */
+ 
 
-// The adapter-core module gives you access to the core ioBroker functions
-// you need to create an adapter
+ 
 const utils = require('@iobroker/adapter-core');
 
-// Load your modules here, e.g.:
-// const fs = require("fs");
+const request = require('request');
 
-class Template extends utils.Adapter {
+ 
+
+class ISoftSafe extends utils.Adapter {
 
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
@@ -22,15 +20,10 @@ class Template extends utils.Adapter {
             name: 'ISoftSafe',
         });
         this.on('ready', this.onReady.bind(this));
-        this.on('objectChange', this.onObjectChange.bind(this));
-        this.on('stateChange', this.onStateChange.bind(this));
-        // this.on('message', this.onMessage.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
 
-    /**
-     * Is called when databases are connected and adapter received configuration.
-     */
+     
     async onReady() {
         // Initialize your adapter here
 
@@ -38,41 +31,47 @@ class Template extends utils.Adapter {
         // this.config:
         this.log.info('config Password: ' + this.config.Password);
         this.log.info('config Username: ' + this.config.Username);
+        const self = this;
+         
+
+        this.log.debug('remote request started');
+
+                request(
+                    {
+                        url: 'https://www.myjudo.eu/interface/?group=register&command=login&name=login&user='+ this.config.Username +
+                                '&password=2edb3ccd0646f33644988ffa52a04b0d&nohash=Service&role=customer' ,
+                         
+                        json: true,
+                        time: true,
+                        timeout: 4500
+                    },
+                    (error, response, content) => {
+                        self.log.debug('remote request done');
+                        if (response) {
+                            self.log.debug('received data (' + response.statusCode + '): ' + JSON.stringify(content));
+                            if (!error && response.statusCode == 200) {
+                                var TokenFrommyjudo =  content.token;
+                                self.setObjectNotExists('Token', {
+                                    type: 'state',
+                                    common: {
+                                        name: 'Token',
+                                        type: 'string',
+                                        role: 'indicator',
+                                        read: true,
+                                        write: false,
+                                    },
+                                    native: {},
+                                });
+                                self.setState('ISoftSafe.Token' , {val: parseFloat(TokenFrommyjudo), ack: true});
+                            }
+                        }
+
+       
+                    }
+                )
+                
         
-
-        /*
-        For every state in the system there has to be also an object of type state
-        Here a simple template for a boolean variable named "testVariable"
-        Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-        */
-        await this.setObjectAsync('testVariable', {
-            type: 'state',
-            common: {
-                name: 'testVariable',
-                type: 'boolean',
-                role: 'indicator',
-                read: true,
-                write: true,
-            },
-            native: {},
-        });
-
-        // in this template all states changes inside the adapters namespace are subscribed
-        this.subscribeStates('*');
-
-        /*
-        setState examples
-        you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-        */
-        // the variable testVariable is set to true as command (ack=false)
-        await this.setStateAsync('testVariable', true);
-
-        // same thing, but the value is flagged "ack"
-        // ack should be always set to true if the value is received from or acknowledged from the target system
-        await this.setStateAsync('testVariable', { val: true, ack: true });
-
-        // same thing, but the state is deleted after 30s (getState will return null afterwards)
-        await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
+   
 
         // examples for the checkPassword/checkGroup functions
         let result = await this.checkPasswordAsync('admin', 'iobroker');
@@ -95,52 +94,7 @@ class Template extends utils.Adapter {
         }
     }
 
-    /**
-     * Is called if a subscribed object changes
-     * @param {string} id
-     * @param {ioBroker.Object | null | undefined} obj
-     */
-    onObjectChange(id, obj) {
-        if (obj) {
-            // The object was changed
-            this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-        } else {
-            // The object was deleted
-            this.log.info(`object ${id} deleted`);
-        }
-    }
 
-    /**
-     * Is called if a subscribed state changes
-     * @param {string} id
-     * @param {ioBroker.State | null | undefined} state
-     */
-    onStateChange(id, state) {
-        if (state) {
-            // The state was changed
-            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-        } else {
-            // The state was deleted
-            this.log.info(`state ${id} deleted`);
-        }
-    }
-
-    // /**
-    //  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-    //  * Using this method requires "common.message" property to be set to true in io-package.json
-    //  * @param {ioBroker.Message} obj
-    //  */
-    // onMessage(obj) {
-    // 	if (typeof obj === 'object' && obj.message) {
-    // 		if (obj.command === 'send') {
-    // 			// e.g. send email or pushover or whatever
-    // 			this.log.info('send command');
-
-    // 			// Send response in callback if required
-    // 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-    // 		}
-    // 	}
-    // }
 
 }
 
@@ -150,8 +104,8 @@ if (module.parent) {
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
      */
-    module.exports = (options) => new Template(options);
+    module.exports = (options) => new ISoftSafe(options);
 } else {
     // otherwise start the instance directly
-    new Template();
+    new ISoftSafe();
 }
