@@ -47,7 +47,7 @@ class ISoftSafe extends utils.Adapter {
                     (error, response, content) => {
                         self.log.debug('remote request done');
                         if (response) {
-                            self.log.debug('received data (' + response.statusCode + '): ' + JSON.stringify(content));
+                            self.log.debug('received data (' + response + '): ' + JSON.stringify(content));
                             if (!error && response.statusCode == 200) {
                                 var TokenFrommyjudo =  content.token;
                                 self.setObjectNotExists('Token', {
@@ -61,23 +61,14 @@ class ISoftSafe extends utils.Adapter {
                                     },
                                     native: {},
                                 });
-                                self.setState('ISoftSafe.Token' , {val: TokenFrommyjudo, ack: true});
+                                self.setState('Token' , {val: TokenFrommyjudo, ack: true});
                             }
                         }
 
        
                     }
                 )
-                
-        
-   
-
-        // examples for the checkPassword/checkGroup functions
-        let result = await this.checkPasswordAsync('admin', 'iobroker');
-        this.log.info('check user admin pw iobroker: ' + result);
-
-        result = await this.checkGroupAsync('admin', 'admin');
-        this.log.info('check group user admin group admin: ' + result);
+       
     }
 
     /**
