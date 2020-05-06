@@ -1,9 +1,9 @@
-![Logo](admin/template.png)
-# ioBroker.template
+![Logo](admin/isoft.png)
+# ioBroker.ISoftSafe
 
 
 For later updates, the above procedure is not necessary. Just do the following:
-1. Overwrite the changed files in the adapter directory (`/opt/iobroker/node_modules/iobroker.template`)
+1. Overwrite the changed files in the adapter directory (`/opt/iobroker/node_modules/iobroker.ISoftSafe`)
 1. Execute `iobroker upload template` on the ioBroker host
 
 ## Changelog
@@ -14,7 +14,7 @@ For later updates, the above procedure is not necessary. Just do the following:
 ## License
 MIT License
 
-Copyright (c) 2020 Author <author@mail.com>
+Copyright (c) 2020 Wolfgang Heim <Willi1974@web.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
