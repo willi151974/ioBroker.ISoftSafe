@@ -47,7 +47,7 @@ class ISoftSafe extends utils.Adapter {
                     (error, response, content) => {
                         self.log.info('remote request done');
                         if (response) {
-                            self.log.debug('received data (' + response + '): ' + JSON.stringify(content));
+                            self.log.info('received data (' + response + '): ' + JSON.stringify(content));
                             if (!error && response.statusCode == 200) {
                                 var TokenFrommyjudo =  content.token;
                                 self.setObjectNotExists('Token', {
@@ -62,13 +62,14 @@ class ISoftSafe extends utils.Adapter {
                                     native: {},
                                 });
                                 self.setState('Token' , {val: TokenFrommyjudo, ack: true});
+
                             }
                         }
 
        
                     }
                 )
-                setTimeout(this.stop.bind(this), 10000);
+                setTimeout(this.stop.bind(this), 20000);
     }
 
     /**
