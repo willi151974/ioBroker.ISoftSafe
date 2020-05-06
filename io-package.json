@@ -5,41 +5,17 @@
         "news": {
             "0.0.1": {
                 "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
+                "de": "Erstveröffentlichung"  
             }
         },
-        "title": "Template (JavaScript with VIS)",
+        "title": "I Soft Safe",
         "titleLang": {
-            "en": "Template (JavaScript with VIS)",
-            "de": "Vorlage (JavaScript mit VIS)",
-            "ru": "Шаблон (JavaScript с VIS)",
-            "pt": "Modelo (JavaScript com VIS)",
-            "nl": "Sjabloon (JavaScript met VIS)",
-            "fr": "Modèle (JavaScript avec VIS)",
-            "it": "Modello (JavaScript con VIS)",
-            "es": "Plantilla (JavaScript con VIS)",
-            "pl": "Szablon (JavaScript z VIS)",
-            "zh-cn": "模板（JavaScript和VIS）"
+            "en": "I Soft Safe",
+            "de": "I Soft Safe" 
         },
         "desc": {
-            "en": "Template for adapter development",
-            "de": "Vorlage für die Adapterentwicklung",
-            "ru": "Шаблон для разработки адаптера",
-            "pt": "Modelo para desenvolvimento de adaptadores",
-            "nl": "Sjabloon voor adapterontwikkeling",
-            "fr": "Modèle de développement d'adaptateur",
-            "it": "Modello per lo sviluppo dell'adattatore",
-            "es": "Plantilla para desarrollo de adaptadores",
-            "pl": "Szablon do opracowania adaptera",
-            "zh-cn": "适配器开发的模板"
+            "en": "Read Data for ISoftSafe from myjudo",
+            "de": "Lesen der ISoftSafe Daten auf myjudo" 
         },
         "authors": [
             "Wolfgang Heim <Willi1974@web.de>"
