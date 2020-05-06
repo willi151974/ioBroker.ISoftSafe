@@ -38,7 +38,8 @@
             "vis"
         ],
         "localLink": "%web_protocol%://%ip%:%web_port%/vis/edit.html",
-        "mode": "daemon",
+        "mode": "schedule",
+        "schedule": "*/5 * * * *",
         "type": "general",
         "compact": true,
         "materialize": true,
