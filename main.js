@@ -34,7 +34,7 @@ class ISoftSafe extends utils.Adapter {
         const self = this;
          
 
-        this.log.debug('remote request started');
+        this.log.info('remote request started');
 
                 request(
                     {
@@ -45,7 +45,7 @@ class ISoftSafe extends utils.Adapter {
                         timeout: 4500
                     },
                     (error, response, content) => {
-                        self.log.debug('remote request done');
+                        self.log.info('remote request done');
                         if (response) {
                             self.log.debug('received data (' + response + '): ' + JSON.stringify(content));
                             if (!error && response.statusCode == 200) {
