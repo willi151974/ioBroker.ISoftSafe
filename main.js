@@ -187,9 +187,9 @@ class ISoftSafe extends utils.Adapter {
 
 function deviceDataView(devicenumber ,device,self) {
     try{
-
+        device = device.data[devicenumber]
         self.log.info('received data devicenumber: (' + devicenumber + '): ' + JSON.stringify(device));
-        var serial = device.data[devicenumber].serialnumber;
+        var serial = device.serialnumber;
         var ewacSV = device.sv;
         var ewacHV = device.hv;
         var errors = device.errors;
