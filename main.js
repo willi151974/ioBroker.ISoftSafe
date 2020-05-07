@@ -495,7 +495,7 @@ function deviceDataView(devicenumber ,device,self) {
         //
 
         //Gesamtwassermenge
-        var gesamtwassermenge = getInValue(device.data[devicenumber].data.data, '8',self);
+        var gesamtwassermenge = getInValue(device.data[devicenumber].data, '8',self);
        // gesamtwassermenge = literToM3(gesamtwassermenge, _lang[GlobalObj['language']].liter);
         self.setObjectNotExists(serial +'.Gesamtwassermenge', {
             type: 'state',
@@ -560,7 +560,7 @@ function getInValue(deviceData, index,self) {
         subIndex = parseInt(t[1]);
     }
     index = parseInt(index);
-    var data = (deviceData[index] != undefined && deviceData[index] != null) ? deviceData[index].data : "";
+    var data = (deviceData.data[index] != undefined && deviceData.data[index] != null) ? deviceData.data[index].data : "";
     self.log.info('index deviceData : (' + JSON.stringify(deviceData) );
     self.log.info('index data : (' + data);
     switch (index) {
