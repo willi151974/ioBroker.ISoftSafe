@@ -210,9 +210,9 @@ function deviceDataView(devicenumber ,device,self) {
             
             self.setObjectNotExists(serial +'.kapazitaet', {
                 type: 'state',
-                common: {  name: 'kapazitaet' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                common: {  name: 'kapazitaet' , type: 'string', role: 'text',read: true, write: false,}, native: {},
             });
-            self.setState(serial +'.kapazitaet'  , {val: kapazitaet, ack: true});
+            self.setState(serial +'.kapazitaet'  , {val: kapazitaet.toString(), ack: true});
 
            
 
@@ -220,9 +220,9 @@ function deviceDataView(devicenumber ,device,self) {
             let kapazitaet = 0
             self.setObjectNotExists(serial +'.kapazitaet', {
                 type: 'state',
-                common: {  name: 'kapazitaet' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                common: {  name: 'kapazitaet' , type: 'string', role: 'text',read: true, write: false,}, native: {},
             });
-            self.setState(serial +'.kapazitaet'  , {val: kapazitaet, ack: true});
+            self.setState(serial +'.kapazitaet'  , {val: kapazitaet.toString(), ack: true});
         }
 
         //var wasserszene = getInValue(device.data[devicenumber].data, '790_10');
@@ -233,9 +233,9 @@ function deviceDataView(devicenumber ,device,self) {
         var wasserHaerte = getInValue(device.data[devicenumber].data, '790_10');
         self.setObjectNotExists(serial +'.wasserHaerte', {
             type: 'state',
-            common: {  name: 'wasserHaerte' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+            common: {  name: 'wasserHaerte' , type: 'string', role: 'text',read: true, write: false,}, native: {},
         });
-        self.setState(serial +'.wasserHaerte'  , {val: wasserHaerte, ack: true});
+        self.setState(serial +'.wasserHaerte'  , {val: wasserHaerte.toString(), ack: true});
 
         //Wasserhärte für Normalbetrieb
         var waterscene_normal = device.waterscene_normal;
@@ -306,7 +306,7 @@ function deviceDataView(devicenumber ,device,self) {
             //  Wasserszenen-Menü
             //
 
-            var wassersceneRestzeit = null;
+            var wassersceneRestzeit = "00:00";
             if (disable_time != "") {
                 var cur_ts = Math.floor(Date.now() / 1000);
                 var rest_sec = parseInt(disable_time) - cur_ts;
@@ -355,6 +355,11 @@ function deviceDataView(devicenumber ,device,self) {
             var stand_reichweite = getInValue(device.data[devicenumber].data, '94');
             var salzstand,
                 reichweite ;
+                self.setObjectNotExists(serial +'.Salzfuellstand', {
+                    type: 'state',
+                    common: {  name: 'Salzfuellstand' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+                });
+                self.setState(serial +'.Salzfuellstand'  , {val: stand_reichweite, ack: true});
 
             var salzstand_rounded = 0;
             if (stand_reichweite.indexOf(':') > -1) {
@@ -363,21 +368,21 @@ function deviceDataView(devicenumber ,device,self) {
                     type: 'state',
                     common: {  name: 'reichweiteWochen' , type: 'string', role: 'text',read: true, write: false,}, native: {},
                 });
-                self.setState(serial +'.reichweiteWochen'  , {val: reichweite, ack: true});
+                self.setState(serial +'.reichweiteWochen'  , {val: reichweite.toString(), ack: true});
 
                 salzstand = stand_reichweite.split(':')[0] / 1000;
                 self.setObjectNotExists(serial +'.salzstand', {
                     type: 'state',
                     common: {  name: 'salzstand' , type: 'string', role: 'text',read: true, write: false,}, native: {},
                 });
-                self.setState(serial +'.salzstand'  , {val: salzstand, ack: true});
+                self.setState(serial +'.salzstand'  , {val: salzstand.toString(), ack: true});
 
                 salzstand_rounded = parseInt(5 * Math.ceil(salzstand / 5));
                 self.setObjectNotExists(serial +'.salzstand_rounded', {
                     type: 'state',
                     common: {  name: 'salzstand_rounded' , type: 'string', role: 'text',read: true, write: false,}, native: {},
                 });
-                self.setState(serial +'.salzstand_rounded'  , {val: salzstand_rounded, ack: true});
+                self.setState(serial +'.salzstand_rounded'  , {val: salzstand_rounded.toString(), ack: true});
 
             }
          
