@@ -86,7 +86,7 @@ class ISoftSafe extends utils.Adapter {
                                                 {
                                                     let i = 0;
                                                     UserData = content.data[key]
-                                                    var Adressen = 'Adresse'+i.toString() +'.';
+                                                    var Adressen = 'Adresse_'+i.toString() +'.';
                                                     //self.log.info('Userdata ' + JSON.stringify(UserData));
                                                     self.setObjectNotExists(Adressen +'Wohnort', {
                                                         type: 'state',
@@ -117,6 +117,12 @@ class ISoftSafe extends utils.Adapter {
                                                     common: {  name: 'JSONAdressen', type: 'string', role: 'json',read: true, write: false,}, native: {},
                                                 });
                                                 self.setState('JSONAdressen'  , {val: JSON.stringify(content), ack: true});
+                                                //  Zeitpunkt der  
+                                                self.setObjectNotExists('Zeitpunkt_Update', {
+                                                    type: 'state',
+                                                    common: {  name: 'Zeitpunkt_Update', type: 'string', role: 'date',read: true, write: false,}, native: {},
+                                                });
+                                                self.setState('Zeitpunkt_Update'  , {val: Date.now(), ack: true});
                                                 
                                                 // Jetzt die Geräte daten auslesen
                                                 request(
@@ -535,6 +541,9 @@ function deviceDataView(devicenumber ,device,self) {
         console.log(err.message);
     }
 }
+
+
+
 
 
 var months = [];
