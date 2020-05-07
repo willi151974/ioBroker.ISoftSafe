@@ -42,6 +42,11 @@
     "sinon": "^8.1.1"
   },
   "main": "main.js",
+  "files": [
+    "main.js",
+    "/lib/ConvertData.js" ,
+    "/lib/DataConverter.js" 
+  ],
   "scripts": {
     "test:js": "mocha --opts test/mocha.custom.opts",
     "test:package": "mocha test/package --exit",
