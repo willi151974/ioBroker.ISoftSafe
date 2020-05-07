@@ -142,7 +142,14 @@ class ISoftSafe extends utils.Adapter {
                                                                 });
                                                                 self.setState('JSONGeraete'  , {val: JSON.stringify(content), ack: true});
                 
+                                                            }else
+                                                            {
+                                                                self.log.info('Get User Device request done but response.statusCode not 200' + response.statusCode);
                                                             }
+                                                        }
+                                                        else
+                                                        {
+                                                            self.log.info('Get User Device request done but no responce');
                                                         }
                                                     }
                                                 )
