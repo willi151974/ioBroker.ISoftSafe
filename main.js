@@ -561,6 +561,7 @@ function getInValue(deviceData, index) {
     }
     index = parseInt(index);
     var data = (deviceData[index] != undefined && deviceData[index] != null) ? deviceData[index].data : "";
+    adapter.log.info(' data : (' + data);
     switch (index) {
         // SW - Version / Get SW_Version
         // 3 Bytes
