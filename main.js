@@ -313,7 +313,7 @@ function deviceDataView(devicenumber ,device,self) {
             //
 
             var wassersceneRestzeit = "00:00";
-            if (disable_time != "") {
+            if (disable_time != null && disable_time != "") {
                 var cur_ts = Math.floor(Date.now() / 1000);
                 var rest_sec = parseInt(disable_time) - cur_ts;
                 var hours = null;
@@ -339,21 +339,22 @@ function deviceDataView(devicenumber ,device,self) {
                         wassersceneRestzeit = hours;
                     }
                 }
-                self.setObjectNotExists(serial +'.wassersceneRestzeit', {
-                    type: 'state',
-                    common: {  name: 'wassersceneRestzeit' , type: 'string', role: 'text',read: true, write: false,}, native: {},
-                });
-                self.setState(serial +'.wassersceneRestzeit'  , {val: wassersceneRestzeit, ack: true});
+               
     
             }
+            self.setObjectNotExists(serial +'.WassersceneRestzeit', {
+                type: 'state',
+                common: {  name: 'WassersceneRestzeit' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+            });
+            self.setState(serial +'.WassersceneRestzeit'  , {val: wassersceneRestzeit, ack: true});
 
             if (waterscene_type == null || waterscene_type.length == 0) waterscene_type = 'normal';
 
-            self.setObjectNotExists(serial +'.waterscene_type', {
+            self.setObjectNotExists(serial +'.Waterscene_type', {
                 type: 'state',
-                common: {  name: 'waterscene_type' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+                common: {  name: 'Waterscene_type' , type: 'string', role: 'text',read: true, write: false,}, native: {},
             });
-            self.setState(serial +'.waterscene_type'  , {val: waterscene_type, ack: true});
+            self.setState(serial +'.Waterscene_type'  , {val: waterscene_type, ack: true});
 
  
 
