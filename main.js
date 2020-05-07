@@ -86,13 +86,13 @@ class ISoftSafe extends utils.Adapter {
                                                 {
                                                     let i = 0;
                                                     UserData = content.data[key]
-                                                    var Adressen = 'Adresse'+i.toString +'.';
+                                                    var Adressen = 'Adresse'+i.toString() +'.';
                                                     //self.log.info('Userdata ' + JSON.stringify(UserData));
-                                                    self.setObjectNotExists('Wohnort', {
+                                                    self.setObjectNotExists(Adressen +'Wohnort', {
                                                         type: 'state',
                                                         common: {  name: 'Wohnort' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
                                                     });
-                                                    self.setState('Wohnort'  , {val: UserData.city, ack: true});
+                                                    self.setState(Adressen +'Wohnort'  , {val: UserData.city, ack: true});
                                                     self.setObjectNotExists(Adressen +'PLZ' , {
                                                         type: 'state',
                                                         common: {  name: 'PLZ' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
