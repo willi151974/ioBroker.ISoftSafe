@@ -371,7 +371,7 @@ function deviceDataView(devicenumber ,device,self) {
                 self.setState(serial +'.SalzreichweiteWochen'  , {val: reichweite.toString(), ack: true});
 
                 salzstand = stand_reichweite.split(':')[0] / 1000;
-                self.setObjectNotExists(serial +'Salzstand', {
+                self.setObjectNotExists(serial +'.Salzstand', {
                     type: 'state',
                     common: {  name: 'Salzstand' , type: 'string', role: 'text',read: true, write: false,}, native: {},
                 });
