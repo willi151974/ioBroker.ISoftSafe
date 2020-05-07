@@ -86,6 +86,8 @@ class ISoftSafe extends utils.Adapter {
                                                 {
                                                     let i = 0;
                                                     UserData = content.data[key]
+                                                    self.log.info('Userdata ' + UserData);
+                                                    self.log.info('Userdata ' + JSON.stringify(UserData));
                                                     self.setObjectNotExists('Wohnort'+i.toString, {
                                                         type: 'state',
                                                         common: {  name: 'Wohnort'+i.toString, type: 'string', role: 'indicator',read: true, write: false,}, native: {},
@@ -114,7 +116,7 @@ class ISoftSafe extends utils.Adapter {
                                                     type: 'state',
                                                     common: {  name: 'JSONAdressen', type: 'string', role: 'json',read: true, write: false,}, native: {},
                                                 });
-                                                self.setState('JSONAdressen'  , {val: content, ack: true});
+                                                self.setState('JSONAdressen'  , {val: JSON.stringify(content), ack: true});
 
                                             }
                                         }
