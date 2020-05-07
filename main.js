@@ -189,7 +189,7 @@ function deviceDataView(devicenumber ,device,self) {
     try{
 
         self.log.info('received data devicenumber: (' + devicenumber + '): ' + JSON.stringify(device));
-        var serial = device.serialnumber;
+        var serial = device.data[devicenumber].serialnumber;
         var ewacSV = device.sv;
         var ewacHV = device.hv;
         var errors = device.errors;
