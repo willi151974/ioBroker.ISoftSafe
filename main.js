@@ -87,27 +87,27 @@ class ISoftSafe extends utils.Adapter {
                                                     let i = 0;
                                                     UserData = content.data[key]
                                                     var Adressen = 'Adresse'+i.toString +'.';
-                                                    self.log.info('Userdata ' + JSON.stringify(UserData));
+                                                    //self.log.info('Userdata ' + JSON.stringify(UserData));
                                                     self.setObjectNotExists(Adressen +'Wohnort', {
                                                         type: 'state',
-                                                        common: {  name: Adressen +'Wohnort' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                        common: {  name: 'Wohnort' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
                                                     });
                                                     self.setState(Adressen +'Wohnort'  , {val: UserData.city, ack: true});
                                                     self.setObjectNotExists(Adressen +'PLZ' , {
                                                         type: 'state',
-                                                        common: {  name: Adressen +'PLZ' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                        common: {  name: 'PLZ' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
                                                     });
                                                     self.setState(Adressen +'PLZ' , {val: UserData.zipcode, ack: true});
                                                     // Strassenname für 
                                                     self.setObjectNotExists(Adressen +'Strasse' , {
                                                         type: 'state',
-                                                        common: {  name: Adressen +'Strasse' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                        common: {  name: 'Strasse' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
                                                     });
                                                     self.setState(Adressen +'Strasse'  , {val: UserData.street, ack: true});
                                                     // Strassenname für 
                                                     self.setObjectNotExists(Adressen +'Hausnummer' , {
                                                         type: 'state',
-                                                        common: {  name: Adressen +'Hausnummer' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                        common: {  name: 'Hausnummer' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
                                                     });
                                                     self.setState(Adressen +'Hausnummer'  , {val: UserData.streetnumber, ack: true});
                                                 }
