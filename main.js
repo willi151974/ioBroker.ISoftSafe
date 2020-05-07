@@ -148,6 +148,7 @@ class ISoftSafe extends utils.Adapter {
                                             }
                                         }
                                     }
+                                )
                                 
                             }
 
