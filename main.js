@@ -32,14 +32,17 @@ class ISoftSafe extends utils.Adapter {
         this.log.info('config Password: ' + this.config.Password);
         this.log.info('config Username: ' + this.config.Username);
         const self = this;
-         
+        
+        var TokenFrommyjudo;
+        var UserData ;
+
+
 
         this.log.info('remote request started');
 
                 request(
                     {
-                        url: 'https://www.myjudo.eu/interface/?group=register&command=login&name=login&user=' +this.config.Username +'&password=2edb3ccd0646f33644988ffa52a04b0d&nohash=Service&role=customer' ,
-                         
+                        url: 'https://www.myjudo.eu/interface/?group=register&command=login&name=login&user=' +this.config.Username +'&password=2edb3ccd0646f33644988ffa52a04b0d&nohash=Service&role=customer' ,                         
                         json: true,
                         time: true,
                         timeout: 4500
@@ -50,7 +53,7 @@ class ISoftSafe extends utils.Adapter {
                             self.log.debug('received data (' + response + '): ' + JSON.stringify(content));
                             self.log.info('received data (' + response + '): ' + JSON.stringify(content));
                             if (!error && response.statusCode == 200) {
-                                var TokenFrommyjudo =  content.token;
+                                TokenFrommyjudo =  content.token;
                                 self.setObjectNotExists('Token', {
                                     type: 'state',
                                     common: {
@@ -63,8 +66,44 @@ class ISoftSafe extends utils.Adapter {
                                     native: {},
                                 });
                                 self.setState('Token' , {val: TokenFrommyjudo, ack: true});
+                                // Get the User Data
+                                request(
+                                    {
+                                        url: 'https://www.myjudo.eu/interface/?token='+TokenFrommyjudo+'&group=register&command=show' ,
+                                         
+                                        json: true,
+                                        time: true,
+                                        timeout: 4500
+                                    },
+                                    (error, response, content) => {
+                                        self.log.info('Get User Data request done');
+                                        if (response) {
+                                            self.log.debug('received data (' + response + '): ' + JSON.stringify(content));
+                                            self.log.info('received data (' + response + '): ' + JSON.stringify(content));
+                                            if (!error && response.statusCode == 200) 
+                                            {                                              
+                                                for (var key in content.data)
+                                                {
+                                                    let i = 0;
+                                                    UserData = content.data[key]
+                                                    self.setObjectNotExists('Wohnort'+i.toString, {
+                                                        type: 'state',
+                                                        common: {  name: 'Wohnort'+i.toString, type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                    });
+                                                    self.setState('Wohnort'+i.toString , {val: UserData.city, ack: true});
+                                                    self.setObjectNotExists('PLZ'+i.toString, {
+                                                        type: 'state',
+                                                        common: {  name: 'PLZ'+i.toString, type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                    });
+                                                    self.setState('Wohnort'+i.toString , {val: UserData.zipcode, ack: true});
+                                                }
+                                            }
+                                        }
+                                    }
+                                )
                                 
                             }
+
                         }
 
        
@@ -85,9 +124,6 @@ class ISoftSafe extends utils.Adapter {
             callback();
         }
     }
-
-
-
 }
 
 // @ts-ignore parent is a valid property on module
