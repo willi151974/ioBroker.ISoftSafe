@@ -69,7 +69,7 @@ class ISoftSafe extends utils.Adapter {
                                 // Get the User Data
                                 request(
                                     {
-                                        url: 'https://www.myjudo.eu/interface/?token='+TokenFrommyjudo+'&group=register&command=show' ,
+                                        url: 'https://www.myjudo.eu/interface/?token='+TokenFrommyjudo+'&group=register&command=showlocation' ,
                                          
                                         json: true,
                                         time: true,
@@ -95,8 +95,27 @@ class ISoftSafe extends utils.Adapter {
                                                         type: 'state',
                                                         common: {  name: 'PLZ'+i.toString, type: 'string', role: 'indicator',read: true, write: false,}, native: {},
                                                     });
-                                                    self.setState('Wohnort'+i.toString , {val: UserData.zipcode, ack: true});
+                                                    self.setState('PLZ'+i.toString , {val: UserData.zipcode, ack: true});
+                                                    // Strassenname für 
+                                                    self.setObjectNotExists('Strasse'+i.toString, {
+                                                        type: 'state',
+                                                        common: {  name: 'PLZ'+i.toString, type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                    });
+                                                    self.setState('Strasse'+i.toString , {val: UserData.street, ack: true});
+                                                    // Strassenname für 
+                                                    self.setObjectNotExists('Hausnummer'+i.toString, {
+                                                        type: 'state',
+                                                        common: {  name: 'Hausnummer'+i.toString, type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                    });
+                                                    self.setState('Hausnummer'+i.toString , {val: UserData.streetnumber, ack: true});
                                                 }
+                                                // Strassenname für 
+                                                self.setObjectNotExists('JSONAdressen', {
+                                                    type: 'state',
+                                                    common: {  name: 'JSONAdressen', type: 'string', role: 'json',read: true, write: false,}, native: {},
+                                                });
+                                                self.setState('JSONAdressen'  , {val: content, ack: true});
+
                                             }
                                         }
                                     }
