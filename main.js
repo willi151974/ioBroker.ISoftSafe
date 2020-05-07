@@ -560,12 +560,12 @@ function getInValue(deviceData, index,self) {
         subIndex = parseInt(t[1]);
     }
     index = parseInt(index);
-    self.log.info('index deviceData : (' + JSON.stringify(deviceData) );
+   // self.log.info('index deviceData : (' + JSON.stringify(deviceData) );
    // var data = (deviceData.data != undefined && deviceData.data != null) ? deviceData.data : "";
     
     var data = (deviceData[index] != undefined && deviceData[index] != null) ? deviceData[index].data : "nix";
     
-    self.log.info('index data : ' + data);
+    //self.log.info('index data : ' + data);
     switch (index) {
         // SW - Version / Get SW_Version
         // 3 Bytes
