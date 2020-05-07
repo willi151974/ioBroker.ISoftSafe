@@ -122,7 +122,7 @@ class ISoftSafe extends utils.Adapter {
                                         }
                                     }
                                 )
-                                requestData(
+                               /* requestData(
                                     {  
                                         url:'https:///www.myjudo.eu/interface/?token='+TokenFrommyjudo+'&group=register&command=get%20device%20data',
                                         json: true,
@@ -148,7 +148,7 @@ class ISoftSafe extends utils.Adapter {
                                             }
                                         }
                                     }
-                                )
+                                )*/
                                 
                             }
 
