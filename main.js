@@ -208,11 +208,11 @@ function deviceDataView(devicenumber ,device,self) {
             //Batteriekapazität
             let kapazitaet = getInValue(device.data[devicenumber].data, '93',self);
             
-            self.setObjectNotExists(serial +'.kapazitaet', {
+            self.setObjectNotExists(serial +'.kapazitaetvorhanden', {
                 type: 'state',
-                common: {  name: 'kapazitaet' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+                common: {  name: 'kapazitaetvorhanden' , type: 'string', role: 'text',read: true, write: false,}, native: {},
             });
-            self.setState(serial +'.kapazitaet'  , {val: kapazitaet.toString(), ack: true});
+            self.setState(serial +'.kapazitaetvorhanden'  , {val: kapazitaet.toString(), ack: true});
 
            
 
