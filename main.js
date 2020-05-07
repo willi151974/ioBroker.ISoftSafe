@@ -6,6 +6,8 @@
 const utils = require('@iobroker/adapter-core');
 
 const request = require('request');
+const requestData = require('request');
+const lib = require('./lib/ConvertData');
 
  
 
@@ -59,7 +61,7 @@ class ISoftSafe extends utils.Adapter {
                                     common: {
                                         name: 'Token',
                                         type: 'string',
-                                        role: 'indicator',
+                                        role: 'text',
                                         read: true,
                                         write: false,
                                     },
@@ -90,24 +92,24 @@ class ISoftSafe extends utils.Adapter {
                                                     //self.log.info('Userdata ' + JSON.stringify(UserData));
                                                     self.setObjectNotExists(Adressen +'Wohnort', {
                                                         type: 'state',
-                                                        common: {  name: 'Wohnort' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                        common: {  name: 'Wohnort' , type: 'string', role: 'text',read: true, write: false,}, native: {},
                                                     });
                                                     self.setState(Adressen +'Wohnort'  , {val: UserData.city, ack: true});
                                                     self.setObjectNotExists(Adressen +'PLZ' , {
                                                         type: 'state',
-                                                        common: {  name: 'PLZ' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                        common: {  name: 'PLZ' , type: 'string', role: 'text',read: true, write: false,}, native: {},
                                                     });
                                                     self.setState(Adressen +'PLZ' , {val: UserData.zipcode, ack: true});
                                                     // Strassenname für 
                                                     self.setObjectNotExists(Adressen +'Strasse' , {
                                                         type: 'state',
-                                                        common: {  name: 'Strasse' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                        common: {  name: 'Strasse' , type: 'string', role: 'text',read: true, write: false,}, native: {},
                                                     });
                                                     self.setState(Adressen +'Strasse'  , {val: UserData.street, ack: true});
                                                     // Strassenname für 
                                                     self.setObjectNotExists(Adressen +'Hausnummer' , {
                                                         type: 'state',
-                                                        common: {  name: 'Hausnummer' , type: 'string', role: 'indicator',read: true, write: false,}, native: {},
+                                                        common: {  name: 'Hausnummer' , type: 'string', role: 'text',read: true, write: false,}, native: {},
                                                     });
                                                     self.setState(Adressen +'Hausnummer'  , {val: UserData.streetnumber, ack: true});
                                                 }
@@ -122,6 +124,32 @@ class ISoftSafe extends utils.Adapter {
                                         }
                                     }
                                 )
+                                requestData(
+                                    {  
+                                        url:'https:///www.myjudo.eu/interface/?token='+TokenFrommyjudo+'&group=register&command=get%20device%20data',
+                                        json: true,
+                                        time: true,
+                                        timeout: 4500
+                                    },
+                                    (errordata, responsedata, contentdata) => {
+                                        self.log.info('Get User Data request done');
+                                        if (responsedata) {
+                                            self.log.debug('received data (' + responsedata + '): ' + JSON.stringify(contentdata));
+                                            self.log.info('received data (' + responsedata + '): ' + JSON.stringify(contentdata));
+                                            if (!errordata && response.statusCode == 200) 
+                                            {   
+
+                                                lib.deviceDataView(0,contentdata,self);
+                                                // Strassenname für 
+                                                self.setObjectNotExists('JSONGeraete', {
+                                                    type: 'state',
+                                                    common: {  name: 'JSONGeraete', type: 'string', role: 'json',read: true, write: false,}, native: {},
+                                                });
+                                                self.setState('JSONGeraete'  , {val: JSON.stringify(contentdata), ack: true});
+
+                                            }
+                                        }
+                                    }
                                 
                             }
 
