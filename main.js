@@ -195,7 +195,7 @@ function deviceDataView(devicenumber ,device,self) {
         var errors = device.errors;
       
         //Notstrommodul prüfen
-        var notstrommodul_data = getInValue(device.data[devicenumber].data, '790_2');
+        var notstrommodul_data = getInValue(device.data[devicenumber].data, '790_2',self);
         var notstrommodul_binary = (+notstrommodul_data).toString(2);
         var nsm_bit = 0;
         if (notstrommodul_binary.length > 1) {
@@ -206,7 +206,7 @@ function deviceDataView(devicenumber ,device,self) {
             nsm_vorhanden = true;
            
             //Batteriekapazität
-            let kapazitaet = getInValue(device.data[devicenumber].data, '93');
+            let kapazitaet = getInValue(device.data[devicenumber].data, '93',self);
             
             self.setObjectNotExists(serial +'.kapazitaet', {
                 type: 'state',
@@ -230,7 +230,7 @@ function deviceDataView(devicenumber ,device,self) {
         var disable_time = device.disable_time;
 
         //Eingestellte Wasserhärte
-        var wasserHaerte = getInValue(device.data[devicenumber].data, '790_10');
+        var wasserHaerte = getInValue(device.data[devicenumber].data, '790_10',self);
         self.setObjectNotExists(serial +'.wasserHaerte', {
             type: 'state',
             common: {  name: 'wasserHaerte' , type: 'string', role: 'text',read: true, write: false,}, native: {},
@@ -241,7 +241,7 @@ function deviceDataView(devicenumber ,device,self) {
         var waterscene_normal = device.waterscene_normal;
            
             // Sleepmodus prüfen
-            var standbyMode = getInValue(device.data[devicenumber].data, '792_9');
+            var standbyMode = getInValue(device.data[devicenumber].data, '792_9',self);
             self.setObjectNotExists(serial +'.StandbyMode', {
                 type: 'state',
                 common: {  name: 'StandbyMode' , type: 'string', role: 'text',read: true, write: false,}, native: {},
@@ -250,7 +250,7 @@ function deviceDataView(devicenumber ,device,self) {
                 
 
             // Wasserhärteeinheit
-            var isoft_einheit = parseInt(getInValue(device.data[devicenumber].data, '12'));
+            var isoft_einheit = parseInt(getInValue(device.data[devicenumber].data, '12',self));
             var isoftWasserhaertEeinheit = '';
             var unit_relation = 1;
             switch (isoft_einheit) {
@@ -292,7 +292,7 @@ function deviceDataView(devicenumber ,device,self) {
              
 
             //Statusflag Regeneration/Im Betrieb
-            var statusflag = parseInt(getInValue(device.data[devicenumber].data, '791_0'));
+            var statusflag = parseInt(getInValue(device.data[devicenumber].data, '791_0',self));
           
             self.setObjectNotExists(serial +'.regeneration', {
                 type: 'state',
@@ -352,7 +352,7 @@ function deviceDataView(devicenumber ,device,self) {
  
 
             //Salzfüllstand
-            var stand_reichweite = getInValue(device.data[devicenumber].data, '94');
+            var stand_reichweite = getInValue(device.data[devicenumber].data, '94',self);
             var salzstand,
                 reichweite ;
                 self.setObjectNotExists(serial +'.Salzfuellstand', {
@@ -392,7 +392,7 @@ function deviceDataView(devicenumber ,device,self) {
 
         //Wasserstop-Daten
         //Max Durchfluss
-        var maxDurchfluss = getInValue(device.data[devicenumber].data, '792_1213');
+        var maxDurchfluss = getInValue(device.data[devicenumber].data, '792_1213',self);
         
         self.setObjectNotExists(serial +'.maxDurchfluss', {
             type: 'state',
@@ -401,14 +401,14 @@ function deviceDataView(devicenumber ,device,self) {
         self.setState(serial +'.maxDurchfluss'  , {val: maxDurchfluss.toString(), ack: true});
 
         //Max Entnahmemenge
-        var maxMenge = getInValue(device.data[devicenumber].data, '792_1415');
+        var maxMenge = getInValue(device.data[devicenumber].data, '792_1415',self);
         self.setObjectNotExists(serial +'.MaxEntnahmemenge', {
             type: 'state',
             common: {  name: 'MaxEntnahmemenge' , type: 'string', role: 'text',read: true, write: false,}, native: {},
         });
         self.setState(serial +'.MaxEntnahmemenge'  , {val: maxMenge.toString(), ack: true});
         //Max Entnahmezeit
-        var maxZeit = getInValue(device.data[devicenumber].data, '792_1617');
+        var maxZeit = getInValue(device.data[devicenumber].data, '792_1617',self);
         
         self.setObjectNotExists(serial +'.Entnahmedauer', {
             type: 'state',
@@ -418,7 +418,7 @@ function deviceDataView(devicenumber ,device,self) {
  
 
         //Gerätenummer
-        var geraetenummer = getInValue(device.data[devicenumber].data, '3');
+        var geraetenummer = getInValue(device.data[devicenumber].data, '3',self);
         
         self.setObjectNotExists(serial +'.Geraetenummer', {
             type: 'state',
@@ -427,7 +427,7 @@ function deviceDataView(devicenumber ,device,self) {
         self.setState(serial +'.Geraetenummer'  , {val: geraetenummer.toString(), ack: true});
 
         //Softwareversion
-        var softwareversion = getInValue(device.data[devicenumber].data, '1');
+        var softwareversion = getInValue(device.data[devicenumber].data, '1',self);
         self.setObjectNotExists(serial +'.Softwareversion', {
             type: 'state',
             common: {  name: 'Softwareversion' , type: 'string', role: 'text',read: true, write: false,}, native: {},
@@ -435,7 +435,7 @@ function deviceDataView(devicenumber ,device,self) {
         self.setState(serial +'.Softwareversion'  , {val: softwareversion.toString(), ack: true});
 
         //Hardwareversion
-        var hardvareversion = getInValue(device.data[devicenumber].data, '2');
+        var hardvareversion = getInValue(device.data[devicenumber].data, '2',self);
         self.setObjectNotExists(serial +'.Hardvareversion', {
             type: 'state',
             common: {  name: 'Hardvareversion' , type: 'string', role: 'text',read: true, write: false,}, native: {},
@@ -462,7 +462,7 @@ function deviceDataView(devicenumber ,device,self) {
 
 
         //nächste Wartung
-        var wartung = getInValue(device.data[devicenumber].data, '7').split(':')[0];
+        var wartung = getInValue(device.data[devicenumber].data, '7',self).split(':')[0];
         self.setObjectNotExists(serial +'.Wartung', {
             type: 'state',
             common: {  name: 'Wartung' , type: 'string', role: 'text',read: true, write: false,}, native: {},
@@ -472,7 +472,7 @@ function deviceDataView(devicenumber ,device,self) {
 
 
         //Inbetriebnahmedatum
-        var inbetriebnahmedatum = getInValue(device.data[devicenumber].data, '6');
+        var inbetriebnahmedatum = getInValue(device.data[devicenumber].data, '6',self);
         self.setObjectNotExists(serial +'.inbetriebnahmedatum', {
             type: 'state',
             common: {  name: 'inbetriebnahmedatum' , type: 'string', role: 'text',read: true, write: false,}, native: {},
@@ -495,7 +495,7 @@ function deviceDataView(devicenumber ,device,self) {
         //
 
         //Gesamtwassermenge
-        var gesamtwassermenge = getInValue(device.data[devicenumber].data, '8');
+        var gesamtwassermenge = getInValue(device.data[devicenumber].data, '8',self);
        // gesamtwassermenge = literToM3(gesamtwassermenge, _lang[GlobalObj['language']].liter);
         self.setObjectNotExists(serial +'.Gesamtwassermenge', {
             type: 'state',
@@ -505,7 +505,7 @@ function deviceDataView(devicenumber ,device,self) {
 
 
         //Gesamt Regenerationszahl
-        var regenerationszahl = getInValue(device.data[devicenumber].data, '791_3031');
+        var regenerationszahl = getInValue(device.data[devicenumber].data, '791_3031',self);
         self.setObjectNotExists(serial +'.Regenerationszahl', {
             type: 'state',
             common: {  name: 'Regenerationszahl' , type: 'string', role: 'text',read: true, write: false,}, native: {},
@@ -514,7 +514,7 @@ function deviceDataView(devicenumber ,device,self) {
 
 
         //Anzahl Wartungen
-        var registrierteWartungen = getInValue(device.data[devicenumber].data, '7').split(':')[1];
+        var registrierteWartungen = getInValue(device.data[devicenumber].data, '7',self).split(':')[1];
          self.setObjectNotExists(serial +'.AnzahlWartungen', {
             type: 'state',
             common: {  name: 'AnzahlWartungen' , type: 'string', role: 'text',read: true, write: false,}, native: {},
@@ -522,7 +522,7 @@ function deviceDataView(devicenumber ,device,self) {
         self.setState(serial +'.AnzahlWartungen'  , {val: registrierteWartungen.toString(), ack: true});
 
         //Wasserdurchfluss
-        var durchfluss = getInValue(device.data[devicenumber].data, '790_1617');
+        var durchfluss = getInValue(device.data[devicenumber].data, '790_1617',self);
         self.setObjectNotExists(serial +'.Wasserdurchfluss', {
             type: 'state',
             common: {  name: 'Wasserdurchfluss' , type: 'string', role: 'text',read: true, write: false,}, native: {},
@@ -551,7 +551,7 @@ months['Oct'] = 10;
 months['Nov'] = 11;
 months['Dec'] = 12;
 
-function getInValue(deviceData, index) {
+function getInValue(deviceData, index,self) {
 
     var value = null, subIndex = null;
     if (index.toString().indexOf('_') > -1) {
@@ -561,7 +561,7 @@ function getInValue(deviceData, index) {
     }
     index = parseInt(index);
     var data = (deviceData[index] != undefined && deviceData[index] != null) ? deviceData[index].data : "";
-    adapter.log.info(' data : (' + data);
+    self.log.info('index data : (' + data);
     switch (index) {
         // SW - Version / Get SW_Version
         // 3 Bytes
