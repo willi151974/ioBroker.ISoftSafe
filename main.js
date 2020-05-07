@@ -208,11 +208,11 @@ function deviceDataView(devicenumber ,device,self) {
             //Batteriekapazität
             let kapazitaet = getInValue(device.data[devicenumber].data, '93',self);
             
-            self.setObjectNotExists(serial +'.kapazitaetvorhanden', {
+            self.setObjectNotExists(serial +'.kapazitaet', {
                 type: 'state',
-                common: {  name: 'kapazitaetvorhanden' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+                common: {  name: 'kapazitaet' , type: 'string', role: 'text',read: true, write: false,}, native: {},
             });
-            self.setState(serial +'.kapazitaetvorhanden'  , {val: kapazitaet.toString(), ack: true});
+            self.setState(serial +'.kapazitaet'  , {val: kapazitaet.toString(), ack: true});
 
            
 
@@ -296,7 +296,7 @@ function deviceDataView(devicenumber ,device,self) {
           
             self.setObjectNotExists(serial +'.regeneration', {
                 type: 'state',
-                common: {  name: 'regeneration' , type: 'string', role: 'value',read: true, write: false,}, native: {},
+                common: {  name: 'regeneration' , type: 'state', role: 'value',read: true, write: false,}, native: {},
             });
             self.setState(serial +'.regeneration'  , {val: statusflag, ack: true});
 
@@ -317,13 +317,13 @@ function deviceDataView(devicenumber ,device,self) {
                 } else {
                     if (rest_sec >= 3600) {
                         hours = Math.ceil(rest_sec / 3600);
-                        var h = parseInt(rest_sec / 3600);
-                        var m = parseInt((rest_sec - h * 3600) / 60);
+                        let h = parseInt(rest_sec / 3600);
+                        let m = parseInt((rest_sec - h * 3600) / 60);
                         if (m.toString().length == 1) m = "0" + m;
                         hours = h + ':' + m;
                     } else {
-                        var h = "00";
-                        var m = parseInt(rest_sec / 60);
+                        let h = "00";
+                        let m = parseInt(rest_sec / 60);
                         if (m.toString().length == 1) m = "0" + m;
                         hours = h + ':' + m;
                     }
@@ -364,25 +364,25 @@ function deviceDataView(devicenumber ,device,self) {
             var salzstand_rounded = 0;
             if (stand_reichweite.indexOf(':') > -1) {
                 reichweite = Math.round(stand_reichweite.split(':')[1] / 7);
-                self.setObjectNotExists(serial +'.reichweiteWochen', {
+                self.setObjectNotExists(serial +'.SalzreichweiteWochen', {
                     type: 'state',
-                    common: {  name: 'reichweiteWochen' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+                    common: {  name: 'SalzreichweiteWochen' , type: 'string', role: 'text',read: true, write: false,}, native: {},
                 });
-                self.setState(serial +'.reichweiteWochen'  , {val: reichweite.toString(), ack: true});
+                self.setState(serial +'.SalzreichweiteWochen'  , {val: reichweite.toString(), ack: true});
 
                 salzstand = stand_reichweite.split(':')[0] / 1000;
-                self.setObjectNotExists(serial +'.salzstand', {
+                self.setObjectNotExists(serial +'Salzstand', {
                     type: 'state',
-                    common: {  name: 'salzstand' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+                    common: {  name: 'Salzstand' , type: 'string', role: 'text',read: true, write: false,}, native: {},
                 });
-                self.setState(serial +'.salzstand'  , {val: salzstand.toString(), ack: true});
+                self.setState(serial +'.Salzstand'  , {val: salzstand.toString(), ack: true});
 
                 salzstand_rounded = parseInt(5 * Math.ceil(salzstand / 5));
-                self.setObjectNotExists(serial +'.salzstand_rounded', {
+                self.setObjectNotExists(serial +'.Salzstand_rounded', {
                     type: 'state',
-                    common: {  name: 'salzstand_rounded' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+                    common: {  name: 'Salzstand_rounded' , type: 'string', role: 'text',read: true, write: false,}, native: {},
                 });
-                self.setState(serial +'.salzstand_rounded'  , {val: salzstand_rounded.toString(), ack: true});
+                self.setState(serial +'.Salzstand_rounded'  , {val: salzstand_rounded.toString(), ack: true});
 
             }
          
@@ -394,11 +394,11 @@ function deviceDataView(devicenumber ,device,self) {
         //Max Durchfluss
         var maxDurchfluss = getInValue(device.data[devicenumber].data, '792_1213',self);
         
-        self.setObjectNotExists(serial +'.maxDurchfluss', {
+        self.setObjectNotExists(serial +'.MaxDurchfluss', {
             type: 'state',
-            common: {  name: 'maxDurchfluss' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+            common: {  name: 'MaxDurchfluss' , type: 'string', role: 'text',read: true, write: false,}, native: {},
         });
-        self.setState(serial +'.maxDurchfluss'  , {val: maxDurchfluss.toString(), ack: true});
+        self.setState(serial +'.MaxDurchfluss'  , {val: maxDurchfluss.toString(), ack: true});
 
         //Max Entnahmemenge
         var maxMenge = getInValue(device.data[devicenumber].data, '792_1415',self);
@@ -456,9 +456,9 @@ function deviceDataView(devicenumber ,device,self) {
         
         self.setObjectNotExists(serial +'.EWACHardwareVersion', {
             type: 'state',
-            common: {  name: 'Hardvareversion' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+            common: {  name: 'EWACHardwareVersion' , type: 'string', role: 'text',read: true, write: false,}, native: {},
         });
-        self.setState(serial +'.Hardvareversion'  , {val: ewacHV.toString(), ack: true});
+        self.setState(serial +'.EWACHardwareVersion'  , {val: ewacHV.toString(), ack: true});
 
 
         //nächste Wartung
@@ -473,11 +473,11 @@ function deviceDataView(devicenumber ,device,self) {
 
         //Inbetriebnahmedatum
         var inbetriebnahmedatum = getInValue(device.data[devicenumber].data, '6',self);
-        self.setObjectNotExists(serial +'.inbetriebnahmedatum', {
+        self.setObjectNotExists(serial +'.Inbetriebnahmedatum', {
             type: 'state',
-            common: {  name: 'inbetriebnahmedatum' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+            common: {  name: 'Inbetriebnahmedatum' , type: 'string', role: 'text',read: true, write: false,}, native: {},
         });
-        self.setState(serial +'.inbetriebnahmedatum'  , {val: inbetriebnahmedatum.toString(), ack: true});
+        self.setState(serial +'.Inbetriebnahmedatum'  , {val: inbetriebnahmedatum.toString(), ack: true});
 
 
         //Notstrommodul
