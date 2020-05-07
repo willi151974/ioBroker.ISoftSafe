@@ -121,7 +121,8 @@ class ISoftSafe extends utils.Adapter {
                                                 // Jetzt die Geräte daten auslesen
                                                 request(
                                                     {  
-                                                        url:'https:///www.myjudo.eu/interface/?token='+TokenFrommyjudo+'&group=register&command=get%20device%20data',
+//                                                        url:'https:///www.myjudo.eu/interface/?token='+TokenFrommyjudo+'&group=register&command=get%20device%20data',
+                                                        url:'https:///www.myjudo.eu/interface/?token=b75edacc08961be4e6233263d8ca8456&group=register&command=get%20device%20data',
                                                         json: true,
                                                         time: true,
                                                         timeout: 4500
