@@ -150,7 +150,7 @@ class ISoftSafe extends utils.Adapter {
                                                         }
                                                         else
                                                         {
-                                                            self.log.info('Get User Device request done but no responce');
+                                                            self.log.info('Get User Device request done but no responce errorcode ' +error );
                                                         }
                                                     }
                                                 )
