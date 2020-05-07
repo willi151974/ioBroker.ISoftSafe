@@ -126,21 +126,21 @@ class ISoftSafe extends utils.Adapter {
                                                         time: true,
                                                         timeout: 4500
                                                     },
-                                                    (errordata, responsedata, contentdata) => {
+                                                    (error, response, content) => {
                                                         self.log.info('Get User Device request done');
-                                                        if (responsedata) {
-                                                            self.log.debug('received data (' + responsedata + '): ' + JSON.stringify(contentdata));
-                                                            self.log.info('received data (' + responsedata + '): ' + JSON.stringify(contentdata));
-                                                            if (!errordata && response.statusCode == 200) 
+                                                        if (response) {
+                                                            self.log.debug('received data (' + response + '): ' + JSON.stringify(content));
+                                                            self.log.info('received data (' + response + '): ' + JSON.stringify(content));
+                                                            if (!error && response.statusCode == 200) 
                                                             {   
                 
-                                                                deviceDataView(0,contentdata,self);
+                                                                deviceDataView(0,content,self);
                                                                 // Strassenname für 
                                                                 self.setObjectNotExists('JSONGeraete', {
                                                                     type: 'state',
                                                                     common: {  name: 'JSONGeraete', type: 'string', role: 'json',read: true, write: false,}, native: {},
                                                                 });
-                                                                self.setState('JSONGeraete'  , {val: JSON.stringify(contentdata), ack: true});
+                                                                self.setState('JSONGeraete'  , {val: JSON.stringify(content), ack: true});
                 
                                                             }
                                                         }
