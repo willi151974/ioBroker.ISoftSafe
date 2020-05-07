@@ -495,7 +495,7 @@ function deviceDataView(devicenumber ,device,self) {
         //
 
         //Gesamtwassermenge
-        var gesamtwassermenge = getInValue(device.data[devicenumber].data, '8',self);
+        var gesamtwassermenge = getInValue(device.data[devicenumber].data.data, '8',self);
        // gesamtwassermenge = literToM3(gesamtwassermenge, _lang[GlobalObj['language']].liter);
         self.setObjectNotExists(serial +'.Gesamtwassermenge', {
             type: 'state',
