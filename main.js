@@ -117,38 +117,41 @@ class ISoftSafe extends utils.Adapter {
                                                     common: {  name: 'JSONAdressen', type: 'string', role: 'json',read: true, write: false,}, native: {},
                                                 });
                                                 self.setState('JSONAdressen'  , {val: JSON.stringify(content), ack: true});
+                                                
+                                                // Jetzt die Geräte daten auslesen
+                                                request(
+                                                    {  
+                                                        url:'https:///www.myjudo.eu/interface/?token='+TokenFrommyjudo+'&group=register&command=get%20device%20data',
+                                                        json: true,
+                                                        time: true,
+                                                        timeout: 4500
+                                                    },
+                                                    (errordata, responsedata, contentdata) => {
+                                                        self.log.info('Get User Device request done');
+                                                        if (responsedata) {
+                                                            self.log.debug('received data (' + responsedata + '): ' + JSON.stringify(contentdata));
+                                                            self.log.info('received data (' + responsedata + '): ' + JSON.stringify(contentdata));
+                                                            if (!errordata && response.statusCode == 200) 
+                                                            {   
+                
+                                                                deviceDataView(0,contentdata,self);
+                                                                // Strassenname für 
+                                                                self.setObjectNotExists('JSONGeraete', {
+                                                                    type: 'state',
+                                                                    common: {  name: 'JSONGeraete', type: 'string', role: 'json',read: true, write: false,}, native: {},
+                                                                });
+                                                                self.setState('JSONGeraete'  , {val: JSON.stringify(contentdata), ack: true});
+                
+                                                            }
+                                                        }
+                                                    }
+                                                )
 
                                             }
                                         }
                                     }
                                 )
-                               /* requestData(
-                                    {  
-                                        url:'https:///www.myjudo.eu/interface/?token='+TokenFrommyjudo+'&group=register&command=get%20device%20data',
-                                        json: true,
-                                        time: true,
-                                        timeout: 4500
-                                    },
-                                    (errordata, responsedata, contentdata) => {
-                                        self.log.info('Get User Data request done');
-                                        if (responsedata) {
-                                            self.log.debug('received data (' + responsedata + '): ' + JSON.stringify(contentdata));
-                                            self.log.info('received data (' + responsedata + '): ' + JSON.stringify(contentdata));
-                                            if (!errordata && response.statusCode == 200) 
-                                            {   
-
-                                                deviceDataView(0,contentdata,self);
-                                                // Strassenname für 
-                                                self.setObjectNotExists('JSONGeraete', {
-                                                    type: 'state',
-                                                    common: {  name: 'JSONGeraete', type: 'string', role: 'json',read: true, write: false,}, native: {},
-                                                });
-                                                self.setState('JSONGeraete'  , {val: JSON.stringify(contentdata), ack: true});
-
-                                            }
-                                        }
-                                    }
-                                )*/
+                              
                                 
                             }
 
