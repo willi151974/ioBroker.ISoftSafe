@@ -48,15 +48,7 @@
             "singleton": true,
             "name": {
                 "en": "Template (JavaScript with VIS)",
-                "de": "Vorlage (JavaScript mit VIS)",
-                "ru": "Шаблон (JavaScript с VIS)",
-                "pt": "Modelo (JavaScript com VIS)",
-                "nl": "Sjabloon (JavaScript met VIS)",
-                "fr": "Modèle (JavaScript avec VIS)",
-                "it": "Modello (JavaScript con VIS)",
-                "es": "Plantilla (JavaScript con VIS)",
-                "pl": "Szablon (JavaScript z VIS)",
-                "zh-cn": "模板（JavaScript和VIS）"
+                "de": "Vorlage (JavaScript mit VIS)"
             },
             "link": "",
             "fa-icon": "info"
@@ -70,8 +62,9 @@
         ]
     },
     "native": {
-        "option1": true,
-        "option2": "42"
+        "Username": "",
+        "Password": "",
+        "PasswordMD5": ""
     },
     "objects": [],
     "instanceObjects": []
