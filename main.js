@@ -561,6 +561,7 @@ function getInValue(deviceData, index,self) {
     }
     index = parseInt(index);
     var data = (deviceData[index] != undefined && deviceData[index] != null) ? deviceData[index].data : "";
+    self.log.info('index deviceData : (' + deviceData);
     self.log.info('index data : (' + data);
     switch (index) {
         // SW - Version / Get SW_Version
