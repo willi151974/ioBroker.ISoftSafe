@@ -38,7 +38,7 @@ class ISoftSafe extends utils.Adapter {
         var TokenFrommyjudo;
         var UserData ;
 
-        function md5(bytes) {
+        function md51(bytes) {
             if (typeof Buffer.from === 'function') {
               // Modern Buffer API
               if (Array.isArray(bytes)) {
@@ -61,18 +61,18 @@ class ISoftSafe extends utils.Adapter {
             type: 'state',
             common: {  name: 'Passwort_Hash' , type: 'string', role: 'text',read: true, write: false,}, native: {},
         });
-        self.setState('Passwort_Hash'  , {val: md5(this.config.Password), ack: true});
+        self.setState('Passwort_Hash'  , {val: md51(this.config.Password), ack: true});
 
 
 
         
 
         var hash = md5(this.config.Password);
-        self.setObjectNotExists('Passwort_MD5', {
+        /*self.setObjectNotExists('Passwort_MD5', {
             type: 'state',
             common: {  name: 'Passwort_MD5' , type: 'string', role: 'text',read: true, write: false,}, native: {},
         });
-        self.setState('Passwort_MD5'  , {val: hash, ack: true});
+        self.setState('Passwort_MD5'  , {val: hash, ack: true});*/
        
         this.log.info('remote request started :' + hash);
 
