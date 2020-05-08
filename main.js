@@ -216,7 +216,7 @@ function deviceDataView(devicenumber ,device,self) {
             type: 'state',
             common: {  name: 'Fehlervorhanden' , type: 'state', role: 'value',read: true, write: false,}, native: {},
         });
-        self.setState(serial +'.Fehlervorhanden'  , {val: parseInt(haserrors.toString()), ack: true});
+        self.setState(serial +'.Fehlervorhanden'  , {val: haserrors.toString(), ack: true});
 
         
 
