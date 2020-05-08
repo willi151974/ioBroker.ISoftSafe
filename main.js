@@ -687,16 +687,16 @@ function getInValue(deviceData, index,self) {
         // 16 bit Angeforederte Wartungen
         case 7:
             if (data.length != 0) {
-                var v1_high = data.slice(0, 2);
-                var v1_low = data.slice(2, 4);
-                var v1 = Math.floor(parseInt(v1_low + "" + v1_high, 16) / 24);
-                var v2_high = data.slice(4, 6);
-                var v2_low = data.slice(6, 8);
-                var v2 = parseInt(v2_low + "" + v2_high, 16);
+                let v1_high = data.slice(0, 2);
+                let v1_low = data.slice(2, 4);
+                let v1 = Math.floor(parseInt(v1_low + "" + v1_high, 16) / 24);
+                let v2_high = data.slice(4, 6);
+                let v2_low = data.slice(6, 8);
+                let v2 = parseInt(v2_low + "" + v2_high, 16);
 
-                var v3_high = data.slice(8, 10);
-                var v3_low = data.slice(10, 12);
-                var v3 = parseInt(v3_low + "" + v3_high, 16);
+                let v3_high = data.slice(8, 10);
+                let v3_low = data.slice(10, 12);
+                let v3 = parseInt(v3_low + "" + v3_high, 16);
 
                 value = v1 + ':' + v2 + ':' + v3;
             } else value = data;
