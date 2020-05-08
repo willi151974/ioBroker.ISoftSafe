@@ -63,8 +63,7 @@
     },
     "native": {
         "Username": "",
-        "Password": "",
-        "PasswordMD5": ""
+        "Password": ""
     },
     "objects": [],
     "instanceObjects": []
