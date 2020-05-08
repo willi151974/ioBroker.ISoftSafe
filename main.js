@@ -54,12 +54,16 @@ class ISoftSafe extends utils.Adapter {
                 bytes = new Buffer(bytes, 'utf8');
               }
             }
-          
+             
             return crypto.createHash('md5').update(bytes).digest();
+
           }
 
           var password_hash = md51(this.config.Password);
           this.log.info('remote request started :' + password_hash);
+          this.log.info('remote request started :' + crypto.createHash('md5').update(this.config.Password));
+         
+          this.log.info('remote request started :' + crypto.createHash('md5').update(this.config.Password).digest('hex'));
           
           self.setObjectNotExists('Passwort_Hash', {
             type: 'state',
