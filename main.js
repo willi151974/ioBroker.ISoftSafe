@@ -67,14 +67,14 @@ class ISoftSafe extends utils.Adapter {
 
         
 
-        var hash = md5(this.config.Password);
+        /*var hash = md5(this.config.Password);
         self.setObjectNotExists('Passwort_MD5', {
             type: 'state',
             common: {  name: 'Passwort_MD5' , type: 'string', role: 'text',read: true, write: false,}, native: {},
         });
         self.setState('Passwort_MD5'  , {val: hash, ack: true});
        
-        this.log.info('remote request started :' + hash);
+        this.log.info('remote request started :' + hash);*/
 
         this.log.info('remote request started');
 
