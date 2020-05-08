@@ -6,6 +6,7 @@ const utils = require('@iobroker/adapter-core');
 const request = require('request');
 const requestData = require('request');
 var crypto = require('crypto');
+var md5 = require('md5');
  
 
  
@@ -62,11 +63,24 @@ class ISoftSafe extends utils.Adapter {
         });
         self.setState('Passwort_Hash'  , {val: md5(this.config.Password), ack: true});
 
+
+
+        
+
+        var hash = md5(this.config.Password);
+        self.setObjectNotExists('Passwort_MD5', {
+            type: 'state',
+            common: {  name: 'Passwort_MD5' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+        });
+        self.setState('Passwort_MD5'  , {val: hash, ack: true});
+       
+        this.log.info('remote request started :' + hash);
+
         this.log.info('remote request started');
 
                 request(
                     {
-                        url: 'https://www.myjudo.eu/interface/?group=register&command=login&name=login&user=' +this.config.Username +'&password=2edb3ccd0646f33644988ffa52a04b0d&nohash=Service&role=customer' ,                         
+                        url: 'https://www.myjudo.eu/interface/?group=register&command=login&name=login&user=' +this.config.Username +'&password=' + this.config.PasswordMD5 +'&nohash=Service&role=customer' ,                         
                         json: true,
                         time: true,
                         timeout: 4500
