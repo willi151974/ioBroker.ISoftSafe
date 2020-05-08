@@ -38,7 +38,7 @@ class ISoftSafe extends utils.Adapter {
         var TokenFrommyjudo;
         var UserData ;    
         var Password_Hash = crypto.createHash('md5').update(this.config.Password).digest('hex');    
-               
+
         self.setObjectNotExists('Passwort_Hash', {
             type: 'state',
             common: {  name: 'Passwort_Hash' , type: 'string', role: 'text',read: true, write: false,}, native: {},
@@ -205,7 +205,21 @@ function deviceDataView(devicenumber ,device,self) {
         var serial = device.serialnumber;
         var ewacSV = device.sv;
         var ewacHV = device.hv;
-        var errors = device.errors;
+        var errors = [];
+        errors= device.errors;
+        var haserrors = false;
+        if (errors.count >1)
+        {
+            haserrors = true;
+        }
+        self.setObjectNotExists(serial +'.Fehlervorhanden', {
+            type: 'state',
+            common: {  name: 'Fehlervorhanden' , type: 'state', role: 'value',read: true, write: false,}, native: {},
+        });
+        self.setState(serial +'.Fehlervorhanden'  , {val: parseInt(haserrors.toString()), ack: true});
+
+        
+
       
         //Notstrommodul prüfen
         var notstrommodul_data = getInValue(device.data[devicenumber].data, '790_2',self);
@@ -219,13 +233,13 @@ function deviceDataView(devicenumber ,device,self) {
             nsm_vorhanden = true;
            
             //Batteriekapazität
-            let kapazitaet = getInValue(device.data[devicenumber].data, '93',self);
+            let Batteriekapazitaet = getInValue(device.data[devicenumber].data, '93',self);
             
-            self.setObjectNotExists(serial +'.kapazitaet', {
+            self.setObjectNotExists(serial +'.Batteriekapazitaet', {
                 type: 'state',
-                common: {  name: 'kapazitaet' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+                common: {  name: 'Batteriekapazitaet' , type: 'string', role: 'text',read: true, write: false,}, native: {},
             });
-            self.setState(serial +'.kapazitaet'  , {val: kapazitaet.toString(), ack: true});
+            self.setState(serial +'.Batteriekapazitaet'  , {val: Batteriekapazitaet.toString(), ack: true});
 
            
 
@@ -244,11 +258,11 @@ function deviceDataView(devicenumber ,device,self) {
 
         //Eingestellte Wasserhärte
         var wasserHaerte = getInValue(device.data[devicenumber].data, '790_10',self);
-        self.setObjectNotExists(serial +'.wasserHaerte', {
+        self.setObjectNotExists(serial +'.WasserHaerte', {
             type: 'state',
-            common: {  name: 'wasserHaerte' , type: 'string', role: 'text',read: true, write: false,}, native: {},
+            common: {  name: 'WasserHaerte' , type: 'string', role: 'text',read: true, write: false,}, native: {},
         });
-        self.setState(serial +'.wasserHaerte'  , {val: wasserHaerte.toString(), ack: true});
+        self.setState(serial +'.WasserHaerte'  , {val: wasserHaerte.toString(), ack: true});
 
         //Wasserhärte für Normalbetrieb
         var waterscene_normal = device.waterscene_normal;
@@ -307,11 +321,11 @@ function deviceDataView(devicenumber ,device,self) {
             //Statusflag Regeneration/Im Betrieb
             var statusflag = parseInt(getInValue(device.data[devicenumber].data, '791_0',self));
           
-            self.setObjectNotExists(serial +'.regeneration', {
+            self.setObjectNotExists(serial +'.Regeneration', {
                 type: 'state',
-                common: {  name: 'regeneration' , type: 'state', role: 'value',read: true, write: false,}, native: {},
+                common: {  name: 'Regeneration' , type: 'state', role: 'value',read: true, write: false,}, native: {},
             });
-            self.setState(serial +'.regeneration'  , {val: statusflag, ack: true});
+            self.setState(serial +'.Regeneration'  , {val: statusflag, ack: true});
 
           
 
