@@ -6,7 +6,7 @@ const utils = require('@iobroker/adapter-core');
 const request = require('request');
 const requestData = require('request');
 var crypto = require('crypto');
-var md5 = require('md5');
+//var md5 = require('md5');
  
 
  
@@ -57,11 +57,15 @@ class ISoftSafe extends utils.Adapter {
           
             return crypto.createHash('md5').update(bytes).digest();
           }
+
+          var password_hash = md51(this.config.Password);
+          this.log.info('remote request started :' + password_hash);
+          
           self.setObjectNotExists('Passwort_Hash', {
             type: 'state',
             common: {  name: 'Passwort_Hash' , type: 'string', role: 'text',read: true, write: false,}, native: {},
         });
-        self.setState('Passwort_Hash'  , {val: md51(this.config.Password), ack: true});
+        self.setState('Passwort_Hash'  , {val: password_hash.toString() , ack: true});
 
 
 
