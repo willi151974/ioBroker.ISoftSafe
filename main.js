@@ -36,59 +36,20 @@ class ISoftSafe extends utils.Adapter {
         const self = this;
         
         var TokenFrommyjudo;
-        var UserData ;
-
-        function md51(bytes) {
-            if (typeof Buffer.from === 'function') {
-              // Modern Buffer API
-              if (Array.isArray(bytes)) {
-                bytes = Buffer.from(bytes);
-              } else if (typeof bytes === 'string') {
-                bytes = Buffer.from(bytes, 'utf8');
-              }
-            } else {
-              // Pre-v4 Buffer API
-              if (Array.isArray(bytes)) {
-                bytes = new Buffer(bytes);
-              } else if (typeof bytes === 'string') {
-                bytes = new Buffer(bytes, 'utf8');
-              }
-            }
-             
-            return crypto.createHash('md5').update(bytes).digest();
-
-          }
-
-          var password_hash = md51(this.config.Password);
-          this.log.info('remote request started :' + password_hash);
-          this.log.info('remote request started :' + crypto.createHash('md5').update(this.config.Password));
-         
-          this.log.info('remote request started :' + crypto.createHash('md5').update(this.config.Password).digest('hex'));
-          
-          self.setObjectNotExists('Passwort_Hash', {
+        var UserData ;    
+        var Password_Hash = crypto.createHash('md5').update(this.config.Password).digest('hex');    
+               
+        self.setObjectNotExists('Passwort_Hash', {
             type: 'state',
             common: {  name: 'Passwort_Hash' , type: 'string', role: 'text',read: true, write: false,}, native: {},
         });
-        self.setState('Passwort_Hash'  , {val: password_hash.toString() , ack: true});
-
-
-
-        
-
-        /*var hash = md5(this.config.Password);
-        self.setObjectNotExists('Passwort_MD5', {
-            type: 'state',
-            common: {  name: 'Passwort_MD5' , type: 'string', role: 'text',read: true, write: false,}, native: {},
-        });
-        self.setState('Passwort_MD5'  , {val: hash, ack: true});
-       
-        this.log.info('remote request started :' + hash);*/
+        self.setState('Passwort_Hash'  , {val: Password_Hash , ack: true});
 
         this.log.info('remote request started');
 
                 request(
                     {
-                        url: 'https://www.myjudo.eu/interface/?group=register&command=login&name=login&user=' +this.config.Username +'&password=' + this.config.PasswordMD5 +'&nohash=Service&role=customer' ,                         
+                        url: 'https://www.myjudo.eu/interface/?group=register&command=login&name=login&user=' +this.config.Username +'&password=' + Password_Hash +'&nohash=Service&role=customer' ,                         
                         json: true,
                         time: true,
                         timeout: 4500
